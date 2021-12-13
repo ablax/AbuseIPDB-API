@@ -165,24 +165,4 @@ public class CheckResponse {
         this.reports = reports;
     }
 
-    @Override
-    public String toString() {
-        return "CheckResponse{" +
-                "ipAddress='" + ipAddress + '\'' +
-                ", isPublic=" + isPublic +
-                ", ipVersion=" + ipVersion +
-                ", isWhitelisted=" + isWhitelisted +
-                ", abuseConfidenceScore=" + abuseConfidenceScore +
-                ", countryCode='" + countryCode + '\'' +
-                ", countryName='" + countryName + '\'' +
-                ", usageType='" + usageType + '\'' +
-                ", isp='" + isp + '\'' +
-                ", domain='" + domain + '\'' +
-                ", hostnames=" + hostnames +
-                ", totalReports=" + totalReports +
-                ", numDistinctUsers=" + numDistinctUsers +
-                ", lastReportedAt=" + lastReportedAt +
-                ", reports=" + reports +
-                '}';
-    }
 }
