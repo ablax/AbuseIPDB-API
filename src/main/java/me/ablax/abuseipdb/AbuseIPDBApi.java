@@ -42,16 +42,6 @@ public class AbuseIPDBApi {
         return api;
     }
 
-    public static void main(String[] args) {
-        final AbuseIPDBApi api = AbuseIPDBApi.getAPI("151280d8927bc1c68ee38714a58c594fc9492c354a3e0e06e74c7a129e40581b5952d13590c4c3c8");
-        try {
-            final CheckBlockResponse checkResponse = api.checkNetwork(new CheckBlockRequest("87.121.54.0/24"));
-            System.out.println(checkResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public CheckResponse checkIp(final CheckRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         removeNullValues(fields);

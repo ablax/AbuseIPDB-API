@@ -29,11 +29,4 @@ public class ReportResponse {
         this.abuseConfidenceScore = abuseConfidenceScore;
     }
 
-    @Override
-    public String toString() {
-        return "ReportResponse{" +
-                "ipAddress='" + ipAddress + '\'' +
-                ", abuseConfidenceScore=" + abuseConfidenceScore +
-                '}';
-    }
 }
