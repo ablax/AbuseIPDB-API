@@ -23,24 +23,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class AbuseIPDBApi {
+public class AbuseIPDBAPI {
 
-    private static final Map<String, AbuseIPDBApi> instances = new HashMap<>();
+    private static final Map<String, AbuseIPDBAPI> instances = new HashMap<>();
     private final JavaPropsMapper propsMapper = new JavaPropsMapper();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient httpClient = new HttpClient();
     private final String apiKey;
 
-    private AbuseIPDBApi(final String apiKey) {
+    private AbuseIPDBAPI(final String apiKey) {
         this.apiKey = apiKey;
     }
 
-    public static AbuseIPDBApi getAPI(final String apiKey) {
+    public static AbuseIPDBAPI getAPI(final String apiKey) {
         if (instances.containsKey(apiKey)) {
             return instances.get(apiKey);
         }
 
-        final AbuseIPDBApi api = new AbuseIPDBApi(apiKey);
+        final AbuseIPDBAPI api = new AbuseIPDBAPI(apiKey);
         instances.put(apiKey, api);
         return api;
     }
