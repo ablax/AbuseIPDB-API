@@ -86,13 +86,8 @@ public class AbuseIPDBAPI {
             if (key.toString().startsWith("category")) fields.remove(key);
         });
         final Optional<String> categories = reportRequest.getCategories().stream().map(String::valueOf).reduce((a, b) -> a + "," + b);
-        if (categories.isPresent()) {
-            fields.put("categories", categories.get());
-        } else {
-            throw new RuntimeException("No categories specified");
-        }
+        fields.put("categories", categories.orElse(""));
 
-        fields.put("category", categories.get());
         removeNullValues(fields);
 
         final String response = httpClient.sendPostRequest("report", apiKey, fields);
