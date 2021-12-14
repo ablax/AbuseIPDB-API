@@ -11,6 +11,9 @@ import me.ablax.abuseipdb.models.check.FullCheckResponseData;
 import me.ablax.abuseipdb.models.checkblock.CheckBlockRequest;
 import me.ablax.abuseipdb.models.checkblock.CheckBlockResponse;
 import me.ablax.abuseipdb.models.checkblock.FullCheckBlockResponseData;
+import me.ablax.abuseipdb.models.clearaddress.ClearAddressRequest;
+import me.ablax.abuseipdb.models.clearaddress.ClearAddressResponse;
+import me.ablax.abuseipdb.models.clearaddress.FullClearAddressResponseData;
 import me.ablax.abuseipdb.models.report.FullReportResponseData;
 import me.ablax.abuseipdb.models.report.ReportRequest;
 import me.ablax.abuseipdb.models.report.ReportResponse;
@@ -58,6 +61,14 @@ public class AbuseIPDBApi {
         final String response = httpClient.sendGetRequest("check-block", apiKey, fields);
 
         return objectMapper.readValue(response, FullCheckBlockResponseData.class).getData();
+    }
+
+    public ClearAddressResponse clearIp(final ClearAddressRequest request) throws IOException {
+        final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
+        removeNullValues(fields);
+
+        final String response = httpClient.sendDeleteRequest("clear-address", apiKey, fields);
+        return objectMapper.readValue(response, FullClearAddressResponseData.class).getData();
     }
 
     public BlacklistResponse getBlacklist(final BlacklistRequest request) throws IOException {
