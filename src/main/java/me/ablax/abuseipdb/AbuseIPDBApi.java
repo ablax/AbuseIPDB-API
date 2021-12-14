@@ -8,10 +8,15 @@ import me.ablax.abuseipdb.models.blacklist.BlacklistResponse;
 import me.ablax.abuseipdb.models.check.CheckRequest;
 import me.ablax.abuseipdb.models.check.CheckResponse;
 import me.ablax.abuseipdb.models.check.FullCheckResponseData;
+import me.ablax.abuseipdb.models.report.FullReportResponseData;
+import me.ablax.abuseipdb.models.report.ReportRequest;
+import me.ablax.abuseipdb.models.report.ReportResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class AbuseIPDBApi {
 
@@ -37,19 +42,46 @@ public class AbuseIPDBApi {
 
     public CheckResponse checkIp(final CheckRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
-        while (fields.values().remove(null)) ;
+        removeNullValues(fields);
 
-        final String response = httpClient.sendRequest("check", apiKey, fields);
+        final String response = httpClient.sendGetRequest("check", apiKey, fields);
 
-        return objectMapper.readValue(response, FullCheckResponseData.class).data;
+        return objectMapper.readValue(response, FullCheckResponseData.class).getData();
     }
 
     public BlacklistResponse getBlacklist(final BlacklistRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
-        while (fields.values().remove(null)) ;
+        removeNullValues(fields);
 
-        final String response = httpClient.sendRequest("blacklist", apiKey, fields);
+        final String response = httpClient.sendGetRequest("blacklist", apiKey, fields);
 
         return objectMapper.readValue(response, BlacklistResponse.class);
+    }
+
+    public ReportResponse reportIp(final ReportRequest reportRequest) throws IOException {
+        final Map<Object, Object> fields = propsMapper.writeValueAsProperties(reportRequest);
+        fields.keySet().forEach(key -> {
+            if (key.toString().startsWith("category")) fields.remove(key);
+        });
+        final Optional<String> categories = reportRequest.getCategories().stream().map(String::valueOf).reduce((a, b) -> a + "," + b);
+        if (categories.isPresent()) {
+            fields.put("categories", categories.get());
+        } else {
+            throw new RuntimeException("No categories specified");
+        }
+
+        fields.put("category", categories.get());
+        removeNullValues(fields);
+
+        final String response = httpClient.sendPostRequest("report", apiKey, fields);
+
+        return objectMapper.readValue(response, FullReportResponseData.class).getData();
+    }
+
+
+    private void removeNullValues(final Map<Object, Object> fields) {
+        while (true) {
+            if (!fields.values().remove(null)) break;
+        }
     }
 }
