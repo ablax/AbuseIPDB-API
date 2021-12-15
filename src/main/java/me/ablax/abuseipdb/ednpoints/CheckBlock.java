@@ -1,20 +1,21 @@
 package me.ablax.abuseipdb.ednpoints;
 
 import me.ablax.abuseipdb.interfaces.Endpoint;
+import me.ablax.abuseipdb.models.checkblock.CheckBlockRequest;
 import me.ablax.abuseipdb.models.checkblock.CheckBlockResponse;
 import me.ablax.abuseipdb.models.checkblock.FullCheckBlockResponseData;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class CheckBlock extends Endpoint<CheckBlockResponse, CheckBlockResponse> {
+public class CheckBlock extends Endpoint<CheckBlockRequest, CheckBlockResponse> {
 
     protected CheckBlock(final String apiKey) {
         super(apiKey);
     }
 
     @Override
-    public CheckBlockResponse sendRequest(final CheckBlockResponse request) throws IOException {
+    protected CheckBlockResponse sendRequest(final CheckBlockRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         removeNullValues(fields);
 
