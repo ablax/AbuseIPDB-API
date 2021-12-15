@@ -16,7 +16,7 @@ public class Report extends Endpoint<ReportRequest, ReportResponse> {
     }
 
     @Override
-    protected ReportResponse sendRequest(final ReportRequest request) throws IOException {
+    public ReportResponse sendRequest(final ReportRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         fields.keySet().forEach(key -> {
             if (key.toString().startsWith("category")) fields.remove(key);

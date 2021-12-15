@@ -14,7 +14,7 @@ public class CheckBlock extends Endpoint<CheckBlockResponse, CheckBlockResponse>
     }
 
     @Override
-    protected CheckBlockResponse sendRequest(final CheckBlockResponse request) throws IOException {
+    public CheckBlockResponse sendRequest(final CheckBlockResponse request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         removeNullValues(fields);
 

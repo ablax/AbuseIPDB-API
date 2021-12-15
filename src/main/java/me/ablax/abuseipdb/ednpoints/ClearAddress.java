@@ -14,7 +14,7 @@ public class ClearAddress extends Endpoint<ClearAddressRequest, ClearAddressResp
     }
 
     @Override
-    protected ClearAddressResponse sendRequest(final ClearAddressRequest request) throws IOException {
+    public ClearAddressResponse sendRequest(final ClearAddressRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         removeNullValues(fields);
 

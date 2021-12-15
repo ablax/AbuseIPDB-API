@@ -13,7 +13,7 @@ public class Blacklist extends Endpoint<BlacklistRequest, BlacklistResponse> {
     }
 
     @Override
-    protected BlacklistResponse sendRequest(final BlacklistRequest request) throws IOException {
+    public BlacklistResponse sendRequest(final BlacklistRequest request) throws IOException {
         final Map<Object, Object> fields = propsMapper.writeValueAsProperties(request);
         removeNullValues(fields);
 
