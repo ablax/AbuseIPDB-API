@@ -24,5 +24,5 @@ public abstract class Endpoint<REQ, RES> {
         }
     }
 
-    protected abstract RES sendRequest(REQ request) throws IOException;
+    public abstract RES sendRequest(REQ request) throws IOException;
 }
