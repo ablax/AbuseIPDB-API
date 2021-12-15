@@ -56,7 +56,7 @@ public class AbuseIPDBAPI {
 
     private <T extends Endpoint<?, ?>> T createInstance(final Class<T> clazz) {
         try {
-            final Constructor<T> constructor = clazz.getConstructor(String.class);
+            final Constructor<T> constructor = clazz.getDeclaredConstructor(String.class);
             constructor.setAccessible(true);
             return constructor.newInstance(this.apiKey);
         } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException x) {
